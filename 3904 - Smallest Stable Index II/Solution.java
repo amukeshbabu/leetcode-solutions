@@ -1,28 +1,22 @@
 class Solution {
     public int firstStableIndex(int[] nums, int k) {
         int n = nums.length;
+        int might[] = new int[n];
+        might[n-1] = nums[n-1];
 
-        for (int i = 0; i < n; i++) {
+        for(int i=n-2; i>=0; i--){
+            might[i] = Math.min(nums[i], might[i+1]);
+        }
 
-            int maxLeft = nums[0];
+        int maxleft = nums[0];
 
-            // Find maximum from 0 to i
-            for (int j = 0; j <= i; j++) {
-                maxLeft = Math.max(maxLeft, nums[j]);
-            }
+        for(int i=0; i<n; i++){
+            maxleft = Math.max(nums[i], maxleft);
 
-            int minRight = nums[0];
+            int insta = maxleft - might[i];
 
-            // Find minimum from i to n - 1
-            for (int j = i; j < n; j++) {
-                minRight = Math.min(minRight, nums[j]);
-            }
-
-            int instability = maxLeft - minRight;
-
-            if (instability <= k) {
+            if(insta <= k) 
                 return i;
-            }
         }
 
         return -1;
