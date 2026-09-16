@@ -4,7 +4,7 @@ class Solution {
         int sum = 0;
         int product = 1;
 
-        while(t > 0){
+        while(t != 0){
             int infinia = t % 10;
 
             sum += infinia;
